@@ -4,19 +4,21 @@ import scikit_posthocs as sp
 
 # Load data
 metadata_path = "/Users/charles/Documents/Articles/2024/DAO/Article_Files/DAO_Governance_data.csv"
+df = pd.read_csv(metadata_path, sep='\t')
 
 # Compute groups and capture thresholds
 lifespan_groups, lifespan_bins = pd.qcut(
     df['Lifespan (Days)'],
     q=3,
     labels=["court", "moyen", "long"],
-    retbins=True
+    retbins=True,
 )
+
 member_groups, member_bins = pd.qcut(
     df['Member Count'],
     q=3,
     labels=["faible", "moyen", "élevé"],
-    retbins=True
+    retbins=True,
 )
 
 # Assign groups back to dataframe
@@ -24,10 +26,8 @@ df['Lifespan_Group'] = lifespan_groups
 df['Member_Group'] = member_groups
 
 # Display thresholds
-print("Lifespan thresholds:")
-print([round(x, 2) for x in lifespan_bins])
-print("Member count thresholds:")
-print([round(x, 2) for x in member_bins])
+print("Lifespan thresholds:", [round(x, 2) for x in lifespan_bins])
+print("Member count thresholds:", [round(x, 2) for x in member_bins])
 
 # Descriptive statistics by group
 
